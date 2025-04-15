@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,344 +6,133 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Design Work Timer Pro</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-   
-    <!-- Firebase SDK v9 Compat -->
-    <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-database-compat.js"></script>
-
-    <script src="https://unpkg.com/wicg-inert@3.1.2/dist/inert.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Digital+Numbers&display=swap" rel="stylesheet">
     
-    <style>
+     <!-- Firebase SDK v9 Compat -->
+     <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-app-compat.js"></script>
+     <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-auth-compat.js"></script>
+     <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-database-compat.js"></script>
+ 
+     <script src="https://unpkg.com/wicg-inert@3.1.2/dist/inert.min.js"></script>
+
+     <style>
         :root {
-            --primary: #2A2A72;
-            --secondary: #009FFD;
-            --success: #28a745;
-            --danger: #dc3545;
-            --warning: #ffc107;
-            --gradient: linear-gradient(45deg, var(--primary), var(--secondary));
+            --primary: #00ff9d;
+            --secondary: #00b4d8;
+            --bg-dark: #0a1929;
+            --card-bg: #132f4c;
+            --text-light: #e0e0e0;
         }
 
         body {
-            background: #f8f9fa;
+            background: var(--bg-dark);
+            color: var(--text-light);
             min-height: 100vh;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        .navbar-brand {
-            font-weight: 700;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+        .digital-font {
+            font-family: 'Digital Numbers', 'Orbitron', monospace;
+            letter-spacing: 2px;
         }
 
+        .navbar-brand {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    color: #155b40 !important;
+    text-shadow: 0 0 10px rgba(0, 255, 157, 0.5);
+}
         .client-card {
-            background: white;
-            border: none;
+            background: var(--card-bg);
+            border: 1px solid rgba(0, 180, 216, 0.3);
             border-radius: 15px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
-            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 180, 216, 0.1);
+            transition: transform 0.3s;
             margin-bottom: 1.5rem;
         }
 
         .client-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            transform: translateY(-3px);
+            box-shadow: 0 0 30px rgba(0, 180, 216, 0.2);
         }
 
         .card-header {
-            background: var(--gradient);
-            color: white;
-            padding: 1.5rem;
-            position: relative;
-        }
-
-        .card-header::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: rgba(255,255,255,0.3);
-        }
+    background: linear-gradient(45deg, #10336d, var(--secondary));
+    border-bottom: 2px solid rgba(0, 255, 157, 0.3);
+}
 
         .time-display {
-            font-size: 2.5rem;
-            font-weight: 700;
+            font-size: 3.5rem;
             color: var(--primary);
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-            transition: all 0.3s;
-            font-family: 'Courier New', monospace;
+            text-shadow: 0 0 15px rgba(0, 255, 157, 0.5);
+            margin: 20px 0;
         }
 
         .cost-display {
-            font-size: 1.8rem;
-            color: var(--success);
-            font-weight: 600;
-            transition: all 0.3s;
+            font-size: 2rem;
+            color: #00ff9d;
+            text-shadow: 0 0 10px rgba(0, 255, 157, 0.3);
         }
 
-        .btn-custom {
-            background: var(--gradient);
+        .btn-cyber {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
             border: none;
-            color: white;
-            padding: 0.8rem 1.5rem;
+            color: #000;
+            font-weight: bold;
+            padding: 12px 25px;
             border-radius: 8px;
             transition: all 0.3s;
-            text-transform: uppercase;
-            font-weight: 600;
-            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
         }
 
-        .btn-custom:hover {
+        .btn-cyber:hover {
             transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 0 20px rgba(0, 255, 157, 0.4);
         }
 
-        .btn-start {
-            background: var(--success);
+        .btn-cyber::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg);
         }
 
-        .btn-stop {
-            background: var(--danger);
-        }
+        .form-control {
+    background: rgb(92 123 155 / 80%);
+    border: 1px solid rgba(0, 180, 216, 0.5);
+    color: #fff0f0;
+    transition: all 0.3s;
+}
 
-        .btn-reset {
-            background: var(--warning);
-            color: #212529;
-        }
-
-        .pulse {
-            animation: pulse 1.5s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+        .form-control:focus {
+            background: rgba(19, 47, 76, 0.9);
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(0, 255, 157, 0.2);
+            color: var(--text-light);
         }
 
         .modal-content {
-            border-radius: 15px;
-            border: none;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            background: var(--card-bg);
+            border: 1px solid rgba(0, 180, 216, 0.5);
         }
 
-
-
-        .form-control {
-            border-radius: 8px;
-            padding: 0.75rem 1rem;
-            border: 1px solid #ced4da;
+        .project-card {
+            background: rgba(19, 47, 76, 0.8);
+            border: 1px solid rgba(0, 180, 216, 0.3);
+            border-radius: 10px;
             transition: all 0.3s;
         }
 
-        .form-control:focus {
-            border-color: var(--secondary);
-            box-shadow: 0 0 0 0.25rem rgba(0, 159, 253, 0.25);
+        .project-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 15px rgba(0, 180, 216, 0.2);
         }
-
-        .bg-transparent {
-            background-color: transparent !important;
-        }
-
-        .border-light {
-            border-color: rgba(255,255,255,0.5) !important;
-        }
-
-        .text-white::placeholder {
-            color: rgba(255,255,255,0.7) !important;
-        }
-
-        .stats-card {
-            background: white;
-            border-radius: 12px;
-            padding: 1.5rem;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            text-align: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .stats-value {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--primary);
-        }
-
-        .stats-label {
-            color: #6c757d;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .active-timer {
-            position: relative;
-        }
-
-        .active-timer::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 12px;
-            height: 12px;
-            background: var(--danger);
-            border-radius: 50%;
-            animation: pulse 1.5s infinite;
-        }
-
-        .modal:not(.show) {
-    display: none;
-}
-/* Perbaikan untuk modal */
-.modal {
-    backdrop-filter: blur(5px);
-}
-
-.modal-content {
-    border: none;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-}
-
-
-
-
-
-#historyContent {
-    max-height: 70vh;
-    overflow-y: auto;
-}
-
-
-        @media (max-width: 768px) {
-            .time-display {
-                font-size: 2rem;
-            }
-            .cost-display {
-                font-size: 1.5rem;
-            }
-            .btn-custom {
-                padding: 0.6rem 1rem;
-                font-size: 0.9rem;
-            }
-        }
-
-        /* Dark mode support */
-        @media (prefers-color-scheme: dark) {
-            body {
-                background: #121212;
-                color: #f8f9fa;
-            }
- 
-            .form-control {
-                background: #2d2d2d;
-                border-color: #444;
-                color: #f8f9fa;
-            }
-
-            
-            .time-display {
-                color: var(--secondary);
-            }
-        }
-
-        /* Drawer Styles */
-.drawer {
-  position: fixed;
-  top: 0;
-  right: -400px;
-  width: 400px;
-  height: 100vh;
-  background: white;
-  z-index: 1050;
-  transition: right 0.3s ease;
-  box-shadow: -5px 0 15px rgba(0,0,0,0.1);
-}
-
-.drawer.show {
-  right: 0;
-}
-
-.drawer-backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  background: rgba(0,0,0,0.5);
-  z-index: 1040;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s;
-}
-
-.drawer-backdrop.show {
-  opacity: 1;
-  visibility: visible;
-}
-
-.drawer-content {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.drawer-header {
-  padding: 1.5rem;
-  border-bottom: 1px solid #eee;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.drawer-body {
-  flex: 1;
-  padding: 1.5rem;
-  overflow-y: auto;
-}
-
-@media (max-width: 576px) {
-  .drawer {
-    width: 90%;
-  }
-}
-
-/* Loading State */
-.loading-spinner {
-  text-align: center;
-  padding: 2rem;
-  color: #666;
-}
-
-.empty-state {
-  text-align: center;
-  padding: 3rem;
-  color: #888;
-}
-
-.client-history-section {
-  border: 1px solid #eee;
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-.history-item {
-  transition: transform 0.2s, box-shadow 0.2s;
-  border-left: 3px solid transparent;
-}
-
-.history-item:hover {
-  transform: translateX(5px);
-  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
-}
-
-.history-item[data-type="pause"] {
-  border-left-color: #ffc107;
-}
     </style>
 </head>
 <body>
@@ -359,44 +147,42 @@
                     <button class="btn btn-custom me-2" onclick="addNewClient()">
                         <i class="fas fa-plus me-2"></i>New Client
                     </button>
-                    <button class="btn btn-custom" onclick="openHistoryDrawer()">
-                        <i class="fas fa-history me-2"></i>History
-                      </button>
-                      
+                    <button class="btn btn-custom" data-bs-toggle="modal" data-bs-target="#projectsModal">
+                        <i class="fas fa-folder-open me-2"></i>Saved Projects
+                    </button>
                 </div>
             </div>
         </div>
     </nav>
 
     <div class="container py-3">
-        <div class="row mb-4" id="statsContainer">
-            <!-- Stats cards will be added here -->
-        </div>
-
         <div id="clientsContainer" class="row g-4"></div>
     </div>
 
- <!-- History Drawer -->
-<div id="historyDrawer" class="drawer">
-    <div class="drawer-content">
-      <div class="drawer-header bg-primary text-white">
-        <h5 class="mb-0"><i class="fas fa-history me-2"></i>Riwayat Project</h5>
-        <button class="btn-close btn-close-white" onclick="closeHistoryDrawer()"></button>
-      </div>
-      <div class="drawer-body p-3" id="historyContent">
-        <div class="loading-spinner">
-          <div class="spinner-border text-primary"></div>
-          <p class="mt-2">Memuat riwayat...</p>
+    <!-- Saved Projects Modal -->
+    <div class="modal fade" id="projectsModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title"><i class="fas fa-folder-open me-2"></i>Saved Projects</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="projectsList" class="row">
+                        <div class="loading-spinner">
+                            <div class="spinner-border text-primary"></div>
+                            <p class="mt-2">Loading projects...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
-  <div class="drawer-backdrop" id="historyBackdrop"></div>
 
     <!-- Client Template -->
     <template id="clientTemplate">
         <div class="client-card col-12">
-            <div class="card-header">
+            <div class="card-header bg-primary text-white">
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="w-75">
                         <input type="text" class="form-control form-control-lg bg-transparent text-white border-light mb-2 client-name" 
@@ -405,7 +191,7 @@
                                placeholder="Project Name">
                     </div>
                     <div>
-                        <button class="btn btn-sm btn-danger" onclick="removeClient(this.closest('.client-card').id)">
+                        <button class="btn btn-sm btn-danger" onclick="deleteClient(this.closest('.client-card').id)">
                             <i class="fas fa-trash me-1"></i>Delete
                         </button>
                     </div>
@@ -418,752 +204,340 @@
                         <label class="form-label">Hourly Rate (Rp)</label>
                         <div class="input-group mb-3">
                             <span class="input-group-text">Rp</span>
-                            <input type="number" class="form-control tariff-input" value="15000" min="0">
+                            <input type="number" class="form-control tariff-input" value="25000" min="0">
                         </div>
                     </div>
                     <div class="col-md-4 text-center">
-                        <div class="cost-display mb-3">Rp 0</div>
+                        <div class="h4 text-success cost-display">Rp 0</div>
                         <div class="time-display">00:00:00</div>
                     </div>
                     <div class="col-md-5 text-end">
-                        <button class="btn btn-start me-2 btn-lg" data-action="startStop">
+                        <button class="btn btn-cyber me-2 btn-lg" data-action="startStop">
                             <i class="fas fa-play me-2"></i>Start
                         </button>
-                        <button class="btn btn-warning me-2 btn-lg" data-action="pause">
-                            <i class="fas fa-pause me-2"></i>Pause
-                        </button>
-                        <button class="btn btn-reset btn-lg" data-action="reset">
+                        <button class="btn btn-warning me-2 btn-lg" data-action="reset">
                             <i class="fas fa-redo me-2"></i>Reset
                         </button>
+                        <button class="btn btn-info btn-lg" onclick="saveProject(this.closest('.client-card').id)">
+                            <i class="fas fa-save me-2"></i>Save
+                        </button>
                     </div>
-    </template>
-
-    <!-- Stats Template -->
-    <template id="statsTemplate">
-        <div class="col-md-4">
-            <div class="stats-card">
-                <div class="stats-value" id="totalClients">0</div>
-                <div class="stats-label">Total Clients</div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="stats-card">
-                <div class="stats-value" id="activeTimers">0</div>
-                <div class="stats-label">Active Timers</div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="stats-card">
-                <div class="stats-value" id="totalEarnings">Rp 0</div>
-                <div class="stats-label">Total Earnings</div>
+                </div>
             </div>
         </div>
     </template>
 
-
     <script>
-// Firebase Initialization
-const firebaseConfig = {
-  apiKey: "AIzaSyA0psMlgeMDz7yJ8uoEXB9T_d7Ttd0PhwQ",
-  authDomain: "timerdesain.firebaseapp.com",
-  databaseURL: "https://timerdesain-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "timerdesain",
-  storageBucket: "timerdesain.appspot.com",
-  messagingSenderId: "354557945433",
-  appId: "1:354557945433:web:d88b4d537dc92c38ffb348"
-};
+        const firebaseConfig = {
+            apiKey: "AIzaSyA0psMlgeMDz7yJ8uoEXB9T_d7Ttd0PhwQ",
+            authDomain: "timerdesain.firebaseapp.com",
+            databaseURL: "https://timerdesain-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "timerdesain",
+            storageBucket: "timerdesain.appspot.com",
+            messagingSenderId: "354557945433",
+            appId: "1:354557945433:web:d88b4d537dc92c38ffb348"
+        };
 
-// Pastikan inisialisasi hanya sekali
-if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
-}
-const database = firebase.database();
-    </script>
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+        let clients = [];
+        let updateInterval;
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
- let isDrawerOpen = false;
- let clients = [];
-        let clientCounter = 0;
-        
-        // Initialize the app
-        document.addEventListener('DOMContentLoaded', function() {
+        // Initialize App
+        document.addEventListener('DOMContentLoaded', () => {
             loadClients();
             startUpdateInterval();
-            addStatsSection();
         });
 
         function startUpdateInterval() {
-            // Update all timers every second
             updateInterval = setInterval(updateAllTimers, 1000);
+        }
+
+        // Client Functions
+        async function addNewClient() {
+            const id = `client_${Date.now()}`;
+            const template = document.getElementById('clientTemplate').content.cloneNode(true);
+            const card = template.querySelector('.client-card');
+            card.id = id;
+
+            document.getElementById('clientsContainer').appendChild(card);
+            
+            await database.ref('clients/' + id).set({
+                name: '',
+                project: '',
+                tariff: 25000,
+                seconds: 0,
+                isRunning: false,
+                startTime: 0
+            });
+
+            loadClients();
+        }
+
+        async function deleteClient(clientId) {
+            if (confirm('Delete this client?')) {
+                await database.ref('clients/' + clientId).remove();
+                document.getElementById(clientId)?.remove();
+            }
         }
 
         function updateAllTimers() {
             clients.forEach(client => {
                 if (client.isRunning) {
                     const card = document.getElementById(client.id);
-                    if (card) {
-                        const seconds = client.seconds + Math.floor((Date.now() - client.startTime) / 1000);
-                        updateTimeDisplay(card, seconds);
-                        updateCostDisplay(card, seconds * (client.tariff / 3600));
-                    }
+                    const seconds = client.seconds + Math.floor((Date.now() - client.startTime) / 1000);
+                    updateTimeDisplay(card, seconds);
+                    updateCostDisplay(card, seconds * (client.tariff / 3600));
                 }
             });
         }
 
-        function addStatsSection() {
-            const template = document.getElementById('statsTemplate').content.cloneNode(true);
-            document.getElementById('statsContainer').appendChild(template);
-        }
-
-        function updateStats() {
-            const totalClients = clients.length;
-            const activeTimers = clients.filter(c => c.isRunning).length;
-            const totalEarnings = clients.reduce((sum, client) => {
-                const seconds = client.seconds + (client.isRunning ? Math.floor((Date.now() - client.startTime) / 1000) : 0);
-                return sum + (seconds * (client.tariff / 3600));
-            }, 0);
-
-            document.getElementById('totalClients').textContent = totalClients;
-            document.getElementById('activeTimers').textContent = activeTimers;
-            document.getElementById('totalEarnings').textContent = `Rp ${totalEarnings.toLocaleString('id-ID', {maximumFractionDigits: 0})}`;
-        }
-
-        // Fungsi Add New Client
-           // Fungsi Add New Client
-           async function addNewClient() {
-            try {
-                const id = `client_${Date.now()}_${clientCounter++}`;
-                const template = document.getElementById('clientTemplate').content.cloneNode(true);
-                const card = template.querySelector('.client-card');
-                card.id = id;
-
-                document.getElementById('clientsContainer').appendChild(card);
-                
-                // Simpan ke Realtime Database
-                await database.ref('clients/' + id).set({
-                    name: '',
-                    project: '',
-                    tariff: 15000,
-                    seconds: 0,
-                    isRunning: false,
-                    startTime: 0,
-                    history: []
-                });
-
-                loadClients();
-            } catch (error) {
-                console.error("Error adding client:", error);
-                alert("Gagal membuat client baru: " + error.message);
-            }
-        }
-
-
-        async function removeClient(clientId) {
-            if (confirm('Are you sure you want to delete this client and all its data?')) {
-                await database.ref('clients/' + clientId).remove();
-                clients = clients.filter(c => c.id !== clientId);
-                document.getElementById(clientId)?.remove();
-                updateStats();
-            }
-        }
-
-        function startStop(clientId) {
+        // Saved Projects Functions
+        async function saveProject(clientId) {
             const client = clients.find(c => c.id === clientId);
             if (!client) return;
 
-            if (client.isRunning) {
-                stopTimer(client);
-            } else {
-                startTimer(client);
+            const projectData = {
+                name: client.name,
+                project: client.project,
+                tariff: client.tariff,
+                seconds: client.seconds,
+                savedAt: Date.now()
+            };
+
+            try {
+                await database.ref('savedProjects/' + clientId).set(projectData);
+                alert('Project saved successfully!');
+            } catch (error) {
+                alert('Error saving project: ' + error.message);
             }
         }
 
-        async function startTimer(client) {
-            client.isRunning = true;
-            client.startTime = Date.now();
-            
-            // Update UI immediately
-            const card = document.getElementById(client.id);
-            if (card) {
-                updateButtonState(card, true);
-                card.classList.add('active-timer');
-            }
-            
-            // Update Firebase
-            await database.ref('clients/' + client.id).update({
-                isRunning: true,
-                startTime: client.startTime
-            });
-            
-            updateStats();
-        }
+        async function loadProjects() {
+            try {
+                const snapshot = await database.ref('savedProjects').once('value');
+                const projects = snapshot.val() || {};
+                const container = document.getElementById('projectsList');
+                container.innerHTML = '';
 
-        
-
-        async function reset(clientId) {
-            if (confirm('Are you sure you want to reset this timer? All time and history will be lost.')) {
-                const client = clients.find(c => c.id === clientId);
-                if (!client) return;
-                
-                client.seconds = 0;
-                client.isRunning = false;
-                client.history = [];
-                
-                // Update UI immediately
-                const card = document.getElementById(clientId);
-                if (card) {
-                    updateTimeDisplay(card, 0);
-                    updateCostDisplay(card, 0);
-                    updateButtonState(card, false);
-                    card.classList.remove('active-timer');
+                if (Object.keys(projects).length === 0) {
+                    container.innerHTML = `
+                        <div class="empty-state text-center py-5">
+                            <i class="fas fa-folder-open fa-3x text-muted mb-3"></i>
+                            <p class="text-muted">No saved projects found</p>
+                        </div>
+                    `;
+                    return;
                 }
-                
-                // Update Firebase
-                await database.ref('clients/' + clientId).update({
-                    seconds: 0,
-                    isRunning: false,
-                    history: [],
-                    startTime: 0
+
+                Object.entries(projects).forEach(([id, project]) => {
+                    const card = document.createElement('div');
+                    card.className = 'col-md-6 mb-3';
+                    card.innerHTML = `
+                        <div class="project-card">
+                            <h6>${project.name || 'Unnamed Client'}</h6>
+                            <p class="text-muted small mb-2">${project.project || 'Unnamed Project'}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <div class="small">Rate: Rp${project.tariff}/hour</div>
+                                    <div class="small">Saved: ${new Date(project.savedAt).toLocaleDateString()}</div>
+                                </div>
+                                <div>
+                                    <button class="btn btn-sm btn-primary" onclick="loadProject('${id}')">
+                                        <i class="fas fa-download"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-danger" onclick="deleteProject('${id}')">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(card);
                 });
-                
-                updateStats();
+            } catch (error) {
+                console.error("Error loading projects:", error);
             }
         }
 
-        function loadClients() {
-  console.log('Memulai load data dari Firebase...');
-  database.ref('clients').on('value', (snapshot) => {
-    const data = snapshot.val() || {};
-    clients = Object.keys(data).map(key => ({
-      id: key,
-      name: data[key].name || 'Client Tanpa Nama',
-      project: data[key].project || 'Project Tanpa Nama',
-      tariff: data[key].tariff || 150000,
-      seconds: data[key].seconds || 0,
-      isRunning: data[key].isRunning || false,
-      startTime: data[key].startTime || 0,
-      history: data[key].history ? Object.values(data[key].history) : []
-    }));
-    
-    console.log('Data clients yang diload:', clients);
-    renderClients();
-    updateStats();
-  }, (error) => {
-    console.error('Error loading data:', error);
-    alert('Gagal memuat data dari server!');
-  });
-}
-
-
-        function renderClients() {
-    const container = document.getElementById('clientsContainer');
-    const existingCards = new Map();
-    Array.from(container.children).forEach(card => {
-        existingCards.set(card.id, card);
-    });
-
-    clients.forEach(client => {
-        let card = existingCards.get(client.id);
-        if (!card) {
-            const template = document.getElementById('clientTemplate').content.cloneNode(true);
-            card = template.querySelector('.client-card');
-            card.id = client.id;
-            container.appendChild(card);
-        }
-        updateCard(card, client);
-    });
-
-    // Hapus card yang tidak ada
-    existingCards.forEach((card, id) => {
-        if (!clients.find(c => c.id === id)) {
-            card.remove();
-        }
-    });
-}
-
-function updateCard(card, client) {
-    const inputs = {
-        name: card.querySelector('.client-name'),
-        project: card.querySelector('.project-name'),
-        tariff: card.querySelector('.tariff-input')
-    };
-
-    // Update input hanya jika tidak sedang focus
-    if (!inputs.name.matches(':focus')) inputs.name.value = client.name;
-    if (!inputs.project.matches(':focus')) inputs.project.value = client.project;
-    if (!inputs.tariff.matches(':focus')) inputs.tariff.value = client.tariff;
-
-    // Update komponen lain
-    const seconds = client.seconds + (client.isRunning ? 
-        Math.floor((Date.now() - client.startTime) / 1000) : 0);
-    updateTimeDisplay(card, seconds);
-    updateCostDisplay(card, seconds * (client.tariff / 3600));
-    updateButtonState(card, client.isRunning);
-}
-
-        function updateTimeDisplay(card, seconds) {
-            const hours = Math.floor(seconds / 3600);
-            const minutes = Math.floor((seconds % 3600) / 60);
-            const secs = seconds % 60;
-            card.querySelector('.time-display').textContent = 
-                `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
-        }
-
-        function updateCostDisplay(card, cost) {
-            card.querySelector('.cost-display').textContent = 
-                `Rp ${Math.floor(cost).toLocaleString('id-ID')}`;
-        }
-
-                // Event Listeners
-                document.addEventListener('DOMContentLoaded', () => {
-            loadClients();
-        });
-
-        function updateButtonState(card, isRunning) {
-    const startStopBtn = card.querySelector('[data-action="startStop"]');
-    const pauseBtn = card.querySelector('[data-action="pause"]');
-    
-    if (isRunning) {
-        startStopBtn.innerHTML = '<i class="fas fa-stop me-2"></i>Stop';
-        startStopBtn.classList.remove('btn-start');
-        startStopBtn.classList.add('btn-stop');
-        pauseBtn.disabled = false;
-    } else {
-        startStopBtn.innerHTML = '<i class="fas fa-play me-2"></i>Start';
-        startStopBtn.classList.remove('btn-stop');
-        startStopBtn.classList.add('btn-start');
-        pauseBtn.disabled = true;
-    }
-}
-
-async function loadHistoryContent() {
-  try {
-    const snapshot = await database.ref('clients').once('value');
-    const data = snapshot.val() || {};
-    const historyContent = document.getElementById('historyContent');
-    
-    historyContent.innerHTML = '';
-    
-    if (Object.keys(data).length === 0) {
-      historyContent.innerHTML = `
-        <div class="empty-state">
-          <i class="fas fa-folder-open fa-3x text-muted"></i>
-          <p class="mt-3">Belum ada project yang dibuat</p>
-        </div>
-      `;
-      return;
-    }
-
-    let hasHistory = false;
-    
-    Object.entries(data).forEach(([clientId, clientData]) => {
-      if (!clientData.history || Object.keys(clientData.history).length === 0) return;
-      hasHistory = true;
-      
-      const clientSection = document.createElement('div');
-      clientSection.className = 'client-history-section mb-4';
-      clientSection.innerHTML = `
-        <div class="client-header bg-light p-3 rounded">
-          <h6 class="mb-0">${clientData.name}</h6>
-          <small class="text-muted">${clientData.project}</small>
-        </div>
-        <div class="history-items mt-2" id="history-${clientId}"></div>
-      `;
-      
-      const historyItems = clientSection.querySelector(`#history-${clientId}`);
-      
-      Object.entries(clientData.history).forEach(([historyId, entry]) => {
-        const historyItem = document.createElement('div');
-        historyItem.className = 'history-item p-3 mb-2 bg-white rounded shadow-sm';
-        historyItem.innerHTML = `
-          <div class="d-flex justify-content-between align-items-center">
-            <div>
-              <div class="badge ${entry.type === 'pause' ? 'bg-warning' : 'bg-success'}">
-                ${entry.type === 'pause' ? 'Jeda' : 'Selesai'}
-              </div>
-              <div class="mt-1 small text-muted">
-                ${new Date(entry.date).toLocaleDateString('id-ID', {
-                  weekday: 'short', 
-                  day: 'numeric',
-                  month: 'short',
-                  year: 'numeric',
-                  hour: '2-digit',
-                  minute: '2-digit'
-                })}
-              </div>
-            </div>
-            <div class="text-end">
-              <div class="fw-bold">Rp ${Math.round(entry.cost).toLocaleString('id-ID')}</div>
-              <div class="small text-muted">${formatTime(entry.duration)}</div>
-              ${entry.type === 'pause' ? `
-              <button class="btn btn-sm btn-success mt-2" 
-                onclick="continueFromHistory('${clientId}', '${historyId}')">
-                <i class="fas fa-play me-1"></i> Lanjutkan
-              </button>` : ''}
-            </div>
-          </div>
-        `;
-        historyItems.appendChild(historyItem);
-      });
-      
-      historyContent.appendChild(clientSection);
-    });
-
-    if (!hasHistory) {
-      historyContent.innerHTML = `
-        <div class="empty-state">
-          <i class="fas fa-clock fa-3x text-muted"></i>
-          <p class="mt-3">Belum ada riwayat aktivitas</p>
-        </div>
-      `;
-    }
-    
-  } catch (error) {
-    console.error('Gagal memuat riwayat:', error);
-    historyContent.innerHTML = `
-      <div class="alert alert-danger">
-        <i class="fas fa-exclamation-triangle me-2"></i>
-        Gagal memuat riwayat: ${error.message}
-      </div>
-    `;
-  }
-}
-async function saveHistoryEntry(clientId, type) {
-  const client = clients.find(c => c.id === clientId);
-  if (!client) return;
-
-  const elapsed = type === 'pause' 
-    ? Math.floor((Date.now() - client.startTime) / 1000)
-    : client.seconds;
-
-  const entry = {
-    date: new Date().toISOString(),
-    duration: elapsed,
-    cost: elapsed * (client.tariff / 3600),
-    type: type
-  };
-
-  try {
-    await database.ref(`clients/${clientId}/history`).push(entry);
-    console.log(`${type} history saved:`, entry);
-    return true;
-  } catch (error) {
-    console.error(`Error saving ${type} history:`, error);
-    return false;
-  }
-}
-        function formatDate(dateString) {
-            const date = new Date(dateString);
-            return date.toLocaleDateString('en-US', { 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
+        async function loadProject(projectId) {
+    try {
+        const snapshot = await database.ref('savedProjects/' + projectId).once('value');
+        const project = snapshot.val();
+        
+        if (confirm('Load this project? Existing data will be overwritten.')) {
+            await database.ref('clients/' + projectId).set({
+                ...project,
+                isRunning: false,
+                startTime: 0
             });
+            
+            // Gunakan cara vanilla JS
+            const modalEl = document.getElementById('projectsModal');
+            const modal = bootstrap.Modal.getInstance(modalEl);
+            modal.hide();
+            
+            loadClients();
+        }
+    } catch (error) {
+        alert('Error loading project: ' + error.message);
+    }
+}
+
+        async function deleteProject(projectId) {
+            if (confirm('Delete this saved project?')) {
+                await database.ref('savedProjects/' + projectId).remove();
+                loadProjects();
+            }
         }
 
-        function formatTime(seconds) {
-    const hrs = Math.floor(seconds / 3600);
-    const mins = Math.floor((seconds % 3600) / 60);
-    const secs = seconds % 60;
-    
-    return `${hrs > 0 ? hrs + 'h ' : ''}${mins > 0 ? mins + 'm ' : ''}${secs}s`;
-}
-
-// Force reload data
-function refreshData() {
-    loadClients();
-    console.log('Data refreshed');
-}
-
-        // Event Delegation
-        document.getElementById('clientsContainer').addEventListener('input', debounce(async (e) => {
+        // Event Listeners
+        document.getElementById('projectsModal').addEventListener('show.bs.modal', loadProjects);
+        
+        document.getElementById('clientsContainer').addEventListener('input', async (e) => {
     const card = e.target.closest('.client-card');
     if (!card) return;
     
     const clientId = card.id;
     const client = clients.find(c => c.id === clientId);
     if (!client) return;
-            
+    
+    // Gunakan class yang lebih spesifik
     if (e.target.classList.contains('client-name')) {
         client.name = e.target.value;
+        await database.ref('clients/' + clientId).update({ name: e.target.value });
     }
-    if (e.target.classList.contains('project-name')) {
+    else if (e.target.classList.contains('project-name')) {
         client.project = e.target.value;
+        await database.ref('clients/' + clientId).update({ project: e.target.value });
     }
-    if (e.target.classList.contains('tariff-input')) {
+    else if (e.target.classList.contains('tariff-input')) {
         client.tariff = Number(e.target.value);
+        await database.ref('clients/' + clientId).update({ tariff: Number(e.target.value) });
     }
-    
-    // Update Firebase
-    await database.ref('clients/' + clientId).update({
-        name: client.name,
-        project: client.project,
-        tariff: client.tariff
-    });
-    
-    updateStats();
-}));
-
-document.getElementById('clientsContainer').addEventListener('click', function(e) {
-    const target = e.target.closest('[data-action]');
-    if (!target) return;
-    
-    const clientId = target.closest('.client-card').id;
-    const action = target.getAttribute('data-action');
-    
-    const client = clients.find(c => c.id === clientId);
-    if (!client) return;
-    
-    if (action === 'startStop') {
-        if (client.isRunning) {
-            stopTimer(client);
-        } else {
-            startTimer(client);
-        }
-    }
-    if (action === 'pause') pause(clientId);
-    if (action === 'reset') reset(clientId);
 });
 
-        // Prevent form submission on Enter key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter' && e.target.tagName === 'INPUT') {
-                e.preventDefault();
+        document.getElementById('clientsContainer').addEventListener('click', async (e) => {
+            const btn = e.target.closest('[data-action]');
+            if (!btn) return;
+            
+            const clientId = btn.closest('.client-card').id;
+            const client = clients.find(c => c.id === clientId);
+            if (!client) return;
+
+            if (btn.dataset.action === 'startStop') {
+                if (client.isRunning) {
+                    client.seconds += Math.floor((Date.now() - client.startTime) / 1000);
+                    client.isRunning = false;
+                } else {
+                    client.startTime = Date.now();
+                    client.isRunning = true;
+                }
+                await database.ref('clients/' + clientId).update({
+                    isRunning: client.isRunning,
+                    startTime: client.startTime,
+                    seconds: client.seconds
+                });
+                updateButtonState(clientId);
+            }
+
+            if (btn.dataset.action === 'reset') {
+                if (confirm('Reset timer?')) {
+                    client.seconds = 0;
+                    client.isRunning = false;
+                    await database.ref('clients/' + clientId).update({
+                        seconds: 0,
+                        isRunning: false
+                    });
+                    updateTimeDisplay(document.getElementById(clientId), 0);
+                    updateCostDisplay(document.getElementById(clientId), 0);
+                    updateButtonState(clientId);
+                }
             }
         });
 
-        // Modal initialization
-const historyModal = new bootstrap.Modal(document.getElementById('historyModal'));
-
-// Event handler untuk modal show
-historyModal._element.addEventListener('show.bs.modal', () => {
-    document.querySelector('#historyModal [data-bs-dismiss="modal"]').focus();
-});
-
-// Event handler untuk modal hide
-historyModal._element.addEventListener('hidden.bs.modal', () => {
-    document.querySelector('[data-bs-target="#historyModal"]').focus();
-});
-
-function debounce(func, timeout = 500) {
-    let timer;
-    return (...args) => {
-        clearTimeout(timer);
-        timer = setTimeout(() => { func.apply(this, args); }, timeout);
-    };
-}
-
-async function pause(clientId) {
-  const client = clients.find(c => c.id === clientId);
-  if (!client || !client.isRunning) return;
-
-  const elapsed = Math.floor((Date.now() - client.startTime) / 1000);
-  client.seconds += elapsed;
-  client.isRunning = false;
-
-  await saveHistoryEntry(clientId, 'pause');
-  await database.ref(`clients/${clientId}`).update({
-    isRunning: false,
-    seconds: client.seconds
-  });
-
-  updateClientUI(clientId);
-}
-
-async function stopTimer(client) {
-  const clientId = client.id;
-  const elapsed = Math.floor((Date.now() - client.startTime) / 1000);
-  client.seconds += elapsed;
-  client.isRunning = false;
-
-  await saveHistoryEntry(clientId, 'stop');
-  await database.ref(`clients/${clientId}`).update({
-    isRunning: false,
-    seconds: client.seconds
-  });
-
-  updateClientUI(clientId);
-}
-
-async function stopTimer(client) {
-    const clientId = client.id;
-    const elapsed = Math.floor((Date.now() - client.startTime) / 1000);
-    client.seconds += elapsed;
-    client.isRunning = false;
+        // Helper Functions
+        function updateTimeDisplay(card, seconds) {
+    const timeDisplay = card.querySelector('.time-display');
+    const hrs = Math.floor(seconds / 3600).toString().padStart(2, '0');
+    const mins = Math.floor((seconds % 3600) / 60).toString().padStart(2, '0');
+    const secs = (seconds % 60).toString().padStart(2, '0');
     
-    const historyEntry = {
-        date: new Date().toISOString(),
-        duration: elapsed,
-        cost: elapsed * (client.tariff / 3600),
-        type: 'stop'
-    };
-
-    // Simpan ke Firebase dengan cara yang benar
-    try {
-        const newHistoryRef = database.ref(`clients/${clientId}/history`).push();
-        await newHistoryRef.set(historyEntry);
-        
-        console.log('History saved:', historyEntry); // Debug
-        
-        // Update status timer
-        await database.ref(`clients/${clientId}`).update({
-            isRunning: false,
-            seconds: client.seconds
-        });
-        
-        // Force reload data
-        loadClients();
-    } catch (error) {
-        console.error('Error saving history:', error);
+    timeDisplay.textContent = `${hrs}:${mins}:${secs}`;
+    
+    // Tambahkan efek animasi
+    if (seconds % 2 === 0) {
+        timeDisplay.style.textShadow = '0 0 15px rgba(0, 255, 157, 0.8)';
+    } else {
+        timeDisplay.style.textShadow = '0 0 20px rgba(0, 180, 216, 0.8)';
     }
 }
-function updateClientUI(clientId) {
+
+        function updateCostDisplay(card, cost) {
+            card.querySelector('.cost-display').textContent = 
+                `Rp ${Math.floor(cost).toLocaleString('id-ID')}`;
+        }
+
+        function updateButtonState(clientId) {
     const client = clients.find(c => c.id === clientId);
-    if (!client) return;
+    const btn = document.querySelector(`#${clientId} [data-action="startStop"]`);
     
-    const card = document.getElementById(clientId);
-    if (!card) return;
-    
-    const seconds = client.seconds + (client.isRunning ? 
-        Math.floor((Date.now() - client.startTime) / 1000) : 0);
-    
-    updateTimeDisplay(card, seconds);
-    updateCostDisplay(card, seconds * (client.tariff / 3600));
-    updateButtonState(card, client.isRunning);
+    if (!btn) return; // Tambahkan pengecekan null
     
     if (client.isRunning) {
-        card.classList.add('active-timer');
+        btn.innerHTML = '<i class="fas fa-stop me-2"></i>Stop';
+        btn.classList.remove('btn-success');
+        btn.classList.add('btn-danger');
     } else {
-        card.classList.remove('active-timer');
+        btn.innerHTML = '<i class="fas fa-play me-2"></i>Start';
+        btn.classList.remove('btn-danger');
+        btn.classList.add('btn-success');
     }
 }
 
-async function continueFromHistory(clientId, historyIndex) {
-    const client = clients.find(c => c.id === clientId);
-    if (!client) return;
+async function loadClients() {
+    const snapshot = await database.ref('clients').once('value');
+    const data = snapshot.val() || {};
     
-    const historyEntry = client.history[historyIndex];
-    if (!historyEntry || historyEntry.type !== 'pause') return;
-    
-    // Mulai timer baru
-    client.isRunning = true;
-    client.startTime = Date.now();
-    
-    // Update Firebase
-    await database.ref('clients/' + clientId).update({
-        isRunning: true,
-        startTime: client.startTime
-    });
-    
-    // Tutup modal dan focus ke project
-    bootstrap.Modal.getInstance(document.getElementById('historyModal')).hide();
-    focusProject(clientId);
-    updateStats();
-}
+    clients = Object.entries(data).map(([id, clientData]) => ({
+        id,
+        name: clientData.name || '',
+        project: clientData.project || '',
+        tariff: clientData.tariff || 25000,
+        seconds: clientData.seconds || 0,
+        isRunning: clientData.isRunning || false,
+        startTime: clientData.startTime || 0
+    }));
 
-function focusProject(clientId) {
-    // Tutup modal history
-    bootstrap.Modal.getInstance(document.getElementById('historyModal')).hide();
+    const container = document.getElementById('clientsContainer');
+    container.innerHTML = '';
     
-    // Scroll ke project yang dimaksud
-    const projectCard = document.getElementById(clientId);
-    if (projectCard) {
-        projectCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        
-        // Tambahkan efek highlight
-        projectCard.classList.add('pulse');
-        setTimeout(() => {
-            projectCard.classList.remove('pulse');
-        }, 2000);
-    }
-}
-
-// Untuk mengecek data history di console
-function checkHistory() {
     clients.forEach(client => {
-        console.group(`Client: ${client.name || 'Unnamed'} (${client.id})`);
-        console.log('History:', client.history);
-        console.groupEnd();
+        const template = document.getElementById('clientTemplate').content.cloneNode(true);
+        const card = template.querySelector('.client-card');
+        card.id = client.id;
+        
+        // Tambahkan pengecekan element
+        const nameInput = card.querySelector('.client-name');
+        const projectInput = card.querySelector('.project-name');
+        const tariffInput = card.querySelector('.tariff-input');
+        
+        if (nameInput) nameInput.value = client.name;
+        if (projectInput) projectInput.value = client.project;
+        if (tariffInput) tariffInput.value = client.tariff;
+        
+        const seconds = client.seconds + (client.isRunning ? 
+            Math.floor((Date.now() - client.startTime) / 1000) : 0);
+        
+        updateTimeDisplay(card, seconds);
+        updateCostDisplay(card, seconds * (client.tariff / 3600));
+        updateButtonState(client.id);
+        
+        container.appendChild(card);
     });
 }
-
-// Untuk memaksa reload data dari Firebase
-function reloadData() {
-    loadClients();
-    console.log('Data reloaded from Firebase');
-}
-
-// Fungsi test untuk menambahkan data contoh
-function testAddHistory() {
-    if (clients.length === 0) {
-        alert('Buat client terlebih dahulu!');
-        return;
-    }
-
-    const clientId = clients[0].id;
-    const testEntry = {
-        date: new Date().toISOString(),
-        duration: 3600, // 1 jam
-        cost: 150000, // Rate 150k/jam
-        type: 'stop'
-    };
-
-    database.ref(`clients/${clientId}/history`).push(testEntry)
-        .then(() => {
-            alert('Test history ditambahkan!');
-            showHistory();
-        })
-        .catch(error => {
-            console.error('Error test:', error);
-            alert('Gagal menambahkan test history');
-        });
-}
-function openHistoryDrawer() {
-  if (isDrawerOpen) return;
-  
-  const drawer = document.getElementById('historyDrawer');
-  const backdrop = document.getElementById('historyBackdrop');
-  
-  drawer.style.transition = 'right 0.3s ease-out';
-  backdrop.style.transition = 'opacity 0.3s ease-out';
-  
-  drawer.classList.add('show');
-  backdrop.classList.add('show');
-  isDrawerOpen = true;
-  
-  loadHistoryContent();
-}
-
-function closeHistoryDrawer() {
-  if (!isDrawerOpen) return;
-  
-  const drawer = document.getElementById('historyDrawer');
-  const backdrop = document.getElementById('historyBackdrop');
-  
-  drawer.style.transition = 'right 0.2s ease-in';
-  backdrop.style.transition = 'opacity 0.2s ease-in';
-  
-  drawer.classList.remove('show');
-  backdrop.classList.remove('show');
-  isDrawerOpen = false;
-}
-// Untuk melihat data langsung dari Firebase
-function debugFirebase() {
-  database.ref('clients').once('value').then(snap => {
-    console.log('Firebase Data:', snap.val());
-  });
-}
-
-// Untuk menghapus semua data
-function resetAllData() {
-  database.ref('clients').remove();
-  console.log('Semua data telah direset');
-}
-
-document.getElementById('historyBackdrop').addEventListener('click', closeHistoryDrawer);
     </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
